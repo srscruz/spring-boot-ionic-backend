@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.sages4it.cursomc.domain.Categoria;
 import com.sages4it.cursomc.domain.Cidade;
+import com.sages4it.cursomc.domain.Cliente;
+import com.sages4it.cursomc.domain.Endereco;
 import com.sages4it.cursomc.domain.Estado;
 import com.sages4it.cursomc.domain.Produto;
+import com.sages4it.cursomc.domain.enums.TipoCliente;
 import com.sages4it.cursomc.repositories.CategoriaRepository;
 import com.sages4it.cursomc.repositories.CidadeRepository;
+import com.sages4it.cursomc.repositories.ClienteRepository;
+import com.sages4it.cursomc.repositories.EnderecoRepository;
 import com.sages4it.cursomc.repositories.EstadoRepository;
 import com.sages4it.cursomc.repositories.ProdutoRepository;
 
@@ -31,6 +36,10 @@ public class CursomcApplication implements CommandLineRunner {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -65,6 +74,17 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		Cliente cli1 = new Cliente(null,"Sergio Cruz", "sergio.cruz@sages4it.com", "18419691844", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("55394219", "971719217"));
+		
+		Endereco e1 = new Endereco(null, "Av. Maestro Vilas Lobos", "805", "A", "Tucuruvi", "02260060", cli1, c2);
+		Endereco e2 = new Endereco(null, "Rua Estela", "515", "Bloco F, Conj. 182", "Paraiso", "04091000", cli1, c2);
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));	
 	}
 
 }
