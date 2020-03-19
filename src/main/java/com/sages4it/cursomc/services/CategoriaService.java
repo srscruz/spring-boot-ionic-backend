@@ -1,5 +1,6 @@
 package com.sages4it.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class CategoriaService {
 
 	}
 
+	public List<Categoria> findAll() {
+		return repo.findAll();
+	}
+
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
@@ -40,10 +45,11 @@ public class CategoriaService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Exclusão não permitida, não é possivel excluir categoria com produtos associados");
-			
+			throw new DataIntegrityException(
+					"Exclusão não permitida, não é possivel excluir categoria com produtos associados");
+
 		}
-		
+
 	}
 
 }
