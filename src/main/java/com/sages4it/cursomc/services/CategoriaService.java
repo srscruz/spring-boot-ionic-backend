@@ -44,6 +44,7 @@ public class CategoriaService {
 		return repo.save(newObj);
 
 	}
+
 	public void delete(Integer id) {
 		find(id);
 		try {
