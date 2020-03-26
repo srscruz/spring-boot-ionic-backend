@@ -20,6 +20,7 @@ import com.sages4it.cursomc.domain.PagamentoComCartao;
 import com.sages4it.cursomc.domain.Pedido;
 import com.sages4it.cursomc.domain.Produto;
 import com.sages4it.cursomc.domain.enums.EstadoPagamento;
+import com.sages4it.cursomc.domain.enums.Perfil;
 import com.sages4it.cursomc.domain.enums.TipoCliente;
 import com.sages4it.cursomc.repositories.CategoriaRepository;
 import com.sages4it.cursomc.repositories.CidadeRepository;
@@ -118,13 +119,25 @@ public class DBService {
 		Cliente cli1 = new Cliente(null, "Sergio Cruz", "sergio.cruz@sages4it.com", "18419691844",
 				TipoCliente.PESSOAFISICA,pe.encode("1234")) ;
 		cli1.getTelefones().addAll(Arrays.asList("55394219", "971719217"));
-
+		
+		Cliente cli2 = new Cliente(null, "Marcos Cruz", "srscruz13@gmail.com", "21468741047",
+				TipoCliente.PESSOAFISICA,pe.encode("1234")) ;
+		
+		cli2.getTelefones().addAll(Arrays.asList("55394219", "996698833"));
+		
+		cli2.addPerfil(Perfil.ADMIN);
+		
+		
 		Endereco e1 = new Endereco(null, "Av. Maestro Vilas Lobos", "805", "A", "Tucuruvi", "02260060", cli1, c2);
 		Endereco e2 = new Endereco(null, "Rua Estela", "515", "Bloco F, Conj. 182", "Paraiso", "04091000", cli1, c2);
-		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
-
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		Endereco e3 = new Endereco(null, "RUA SÃO SALVADOR DA TORRE", "32", "", "GRAJAU", "04850-100", cli2, c2);
+		
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2,e3));
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2019 10:22"), cli1, e1);
