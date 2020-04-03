@@ -55,7 +55,7 @@ public class DBService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
-	public void intaciateDatabase() throws ParseException {
+	public void instaciateDatabase() throws ParseException {
 
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
